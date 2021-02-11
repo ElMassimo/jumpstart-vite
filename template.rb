@@ -128,8 +128,7 @@ def add_vite
 end
 
 def add_javascript
-  run "yarn add expose-loader jquery popper.js bootstrap data-confirm-modal local-time"
-
+  run "yarn add expose-loader jquery popper.js bootstrap data-confirm-modal local-time @hotwired/turbo-rails trix @rails/actiontext sass @popperjs/core font-awesome stimulus"
   if rails_5?
     run "yarn add @rails/actioncable@pre @rails/actiontext@pre @rails/activestorage@pre @rails/ujs@pre"
   end
