@@ -1,87 +1,94 @@
-👉 We've also built [Jumpstart Pro](https://jumpstartrails.com) which is a version of Jumpstart that includes payments with Stripe & Braintree, team accounts, TailwindCSS, and much more.
+<h1 align="center">
+  <a href="https://vite-ruby.netlify.app/">
+    <img src="https://raw.githubusercontent.com/ElMassimo/vite_ruby/main/docs/public/logo.svg" width="200px"/>
+  </a>
 
-# Jumpstart Rails Template
+  <br>
 
-All your Rails apps should start off with a bunch of great defaults. It's like Laravel Spark, for Rails.
+  <a href="https://github.com/excid3/jumpstart">Jumpstart Rails</a>
+  with
+  <a href="https://vite-ruby.netlify.app/">Vite</a>
 
-Want to see how it works? Check out [the Jumpstart walkthrough video](https://www.youtube.com/watch?v=ssOZpISfIfI):
+  <br>
 
-[![Jumpstart Ruby on Rails Template Walkthrough](https://i.imgur.com/pZDPbc7l.png)](https://www.youtube.com/watch?v=ssOZpISfIfI)
+  <p align="center">
+    <a href="https://github.com/ElMassimo/vite_ruby/blob/master/LICENSE.txt">
+      <img alt="License" src="https://img.shields.io/badge/license-MIT-428F7E.svg"/>
+    </a>
+  </p>
+</h1>
 
-## Getting Started
+[jumpstart]: https://github.com/excid3/jumpstart
+[pro]: https://jumpstartrails.com
+[vite_rails]: https://github.com/ElMassimo/vite_rails/tree/main/vite_rails
+[esbuild]: https://github.com/evanw/esbuild
+[significantly faster]: https://github.com/evanw/esbuild#why
+[no bundling]: https://vitejs.dev/guide/introduction.html#the-problem
+[bundling]: https://vitejs.dev/guide/introduction.html#why-bundle-for-production
 
-Jumpstart is a Rails template, so you pass it in as an option when creating a new app.
+This repo is a fork of the [__Jumpstart Rails__][jumpstart] template, which is
+like Laravel Spark, for Rails.
 
-#### Requirements
+This fork replaces webpacker with [__Vite Rails__][vite_rails], and extends the
+basic setup to include a working Stimulus example and Hotwire integration.
 
-You'll need the following installed to run the template successfully:
+## Features ⚡️
 
-* Ruby 2.5 or higher
-* Redis - For ActionCable support
-* bundler - `gem install bundler`
-* rails - `gem install rails`
-* Yarn - `brew install yarn` or [Install Yarn](https://yarnpkg.com/en/docs/install)
-* Foreman (optional) - `gem install foreman` - helps run all your
-  processes in development
+- 💡 Instant server start
+- ⚡️ Blazing fast hot reload
+- 🚀 Stimulus + Turbo Hotwire
+- [And more!][jumpstart]
 
-#### Creating a new app
-
-```bash
-rails new myapp -d postgresql -m https://raw.githubusercontent.com/excid3/jumpstart/master/template.rb
-```
-
-Or if you have downloaded this repo, you can reference template.rb locally:
-
-```bash
-rails new myapp -d postgresql -m template.rb
-```
-
-❓Having trouble? Try adding `DISABLE_SPRING=1` before `rails new`. Spring will get confused if you create an app with the same name twice.
-
-#### Running your app
-
-To run your app, use `foreman start`. Foreman will run `Procfile.dev` via `foreman start -f Procfile.dev` as configured by the `.foreman` file and will launch the development processes `rails server`, `sidekiq`, and `vite dev` processes.
-
-You can also run them in separate terminals manually if you prefer.
-
-A separate `Procfile` is generated for deploying to production on Heroku.
-
-#### Authenticate with social networks
-
-We use the encrypted Rails Credentials for app_id and app_secrets when it comes to omniauth authentication. Edit them as so:
-
-```
-EDITOR=vim rails credentials:edit
-```
-
-Make sure your file follow this structure:
-
-```yml
-secret_key_base: [your-key]
-development:
-  github:
-    app_id: something
-    app_secret: something
-    options:
-      scope: 'user:email'
-      whatever: true
-production:
-  github:
-    app_id: something
-    app_secret: something
-    options:
-      scope: 'user:email'
-      whatever: true
-```
-
-With the environment, the service and the app_id/app_secret. If this is done correctly, you should see login links
-for the services you have added to the encrypted credentials using `EDITOR=vim rails credentials:edit`
-
-#### Cleaning up
+## Installation 💿
 
 ```bash
-rails db:drop
-spring stop
-cd ..
-rm -rf myapp
+rails new myapp -d postgresql -m https://raw.githubusercontent.com/ElMassimo/jumpstart-vite/master/template.rb
 ```
+
+For the rest of the instructions, head to [Jumpstart Rails][jumpstart].
+
+## Video Comparison 🎥
+
+### Webpacker
+
+Installing the vanilla Jumpstart template takes 5 minutes, be prepared to watch
+`node-sass` spin for a while, along with all the babel dependencies.
+
+<img width="720" alt="jumpstart-webpacker-node-sass" src="https://user-images.githubusercontent.com/1158253/107692177-2e6bc200-6c8b-11eb-8943-c03a2f3a5023.png">
+
+<img width="720" alt="jumpstart-webpacker-installation" src="https://user-images.githubusercontent.com/1158253/107692176-2e6bc200-6c8b-11eb-9511-69124f6bf844.png">
+
+Once it's installed, and we have run `bin/rake db:create db:migrate`, we'll do:
+
+https://user-images.githubusercontent.com/1158253/107692148-2744b400-6c8b-11eb-833a-7a7d4e46e6be.mp4
+
+Cold start is particularly slow, and it locks Rails rendering.
+
+### Vite ⚡️
+
+Installing the Jumpstart template with Vite takes 1 minute.
+
+<img width="649" alt="jumpstart-vite-installation" src="https://user-images.githubusercontent.com/1158253/107692180-2f045880-6c8b-11eb-9fbe-8289100d22b8.png">
+
+Once it's installed, and we have run `bin/rake db:create db:migrate`, we'll do:
+
+https://user-images.githubusercontent.com/1158253/107692172-2ca1fe80-6c8b-11eb-9e2b-d44c069a45b0.mp4
+
+It loads Stimulus and runs an example controller, and as you can see loads only 9 seconds after `foreman start`.
+
+Subsequent loads are significantly faster.
+
+## How does it work? 🤔
+
+Vite is powered by [esbuild], which can process files [significantly faster] than Webpack.
+
+Vite [does not bundle your code during development][no bundling], which means
+as your app grows, the dev server will still start fast, and your changes will
+continue be __updated instantly__.
+
+In production, Vite [bundles your code][bundling] with tree-shaking, lazy-loading,
+and common chunk splitting out of the box, to achieve optimal loading performance.
+
+## Special Thanks 🙌
+
+- [Jumpstart Rails][jumpstart]: 👉 Have in mind they have also built [Jumpstart Pro][pro] which also includes payments with Stripe & Braintree, team accounts, TailwindCSS, and much more.
