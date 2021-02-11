@@ -1,3 +1,7 @@
+### 2021-02-11
+
+* Replace `webpacker` with `vite_rails`
+
 ### 2020-10-24
 
 * Rescue from git configuration exception

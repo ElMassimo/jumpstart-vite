@@ -40,7 +40,7 @@ rails new myapp -d postgresql -m template.rb
 
 #### Running your app
 
-To run your app, use `foreman start`. Foreman will run `Procfile.dev` via `foreman start -f Procfile.dev` as configured by the `.foreman` file and will launch the development processes `rails server`, `sidekiq`, and `webpack-dev-server` processes. 
+To run your app, use `foreman start`. Foreman will run `Procfile.dev` via `foreman start -f Procfile.dev` as configured by the `.foreman` file and will launch the development processes `rails server`, `sidekiq`, and `vite dev` processes.
 
 You can also run them in separate terminals manually if you prefer.
 
